@@ -297,7 +297,9 @@ button {
         border-radius: 10px; 
         margin-bottom: 10px; 
         box-shadow: 0 4px 12px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.1); 
-        width: 240px; 
+        display: inline-block; 
+        width: fit-content;
+        max-width: 90vw;
         text-align: left; 
         transform: translateY(12px);  
         opacity: 0; 
