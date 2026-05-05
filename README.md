@@ -1,4 +1,4 @@
-# Assignment 4 – Portfolio Website
+# Personal – Portfolio Website
 
 ## Project Description
 This is an upgraded and fully improved version of my personal portfolio website.  
@@ -42,6 +42,10 @@ The goal of this project is to create a polished, professional, and interactive 
 - **New project added**:  
   Added the **Gym Workout Program Web App** project card with full description and layout.
 
+- **Functional contact form**:  
+  Functional contact form that sends messages directly to email using Formspree
+
+
 - **Live Deployment**:  
   Website is deployed using **Vercel** for fast, stable hosting.
 
@@ -58,7 +62,7 @@ The goal of this project is to create a polished, professional, and interactive 
 ## Live Deployment
 The website is hosted on **Vercel**:
 
-**Live Link:** [Open Website](https://assignment-4-gamma-swart.vercel.app)
+**Live Link:** [Open Website](zayad-portfolio-gamma-swart.vercel.app)
 
 
 ---
