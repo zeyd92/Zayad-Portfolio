@@ -547,26 +547,14 @@ button {
 
 /* Collapsible details section - hidden by default */
 .details {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.4s ease, opacity 0.4s ease;
-        opacity: 0;
-        margin-top: 8px;
-      }
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height .4s ease, opacity .4s ease;
+}
 
 .details.active {
-        max-height: 1000px;
-        opacity: 1;
-}
-
-.details ul {
-    list-style: none;
-    padding: 0;
-    margin-top: 10px;
-}
-
-.details li {
-    margin-bottom: 8px;
+  opacity: 1;
 }
 
 .project-right {
@@ -650,3 +638,57 @@ button {
         margin-top: 10px;
         display: block;
         }
+
+#github-projects {
+    background: var(--surface-3);
+    margin: 20px;
+    padding: 30px;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    max-height:700px;
+  overflow-y:auto;
+}
+
+#github-projects::-webkit-scrollbar{
+  width:8px;
+}
+
+#github-projects::-webkit-scrollbar-thumb{
+  background: rgba(255,255,255,.18);
+  border-radius:10px;
+}
+
+#github-projects::-webkit-scrollbar-track{
+  background: transparent;
+}
+
+#github-projects h2 {
+  display: block;
+  visibility: visible;
+  color: var(--text);
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+#github-projects .github-list{
+    margin-top:20px;
+}
+
+#github-projects p {
+    margin-bottom: 10px;
+    color: var(--muted);
+}
+
+#github-projects a {
+    color: var(--link);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+#github-projects a:hover {
+  color: #005f99;
+}
+
+.github-repo-card{
+    margin-bottom:16px;
+}

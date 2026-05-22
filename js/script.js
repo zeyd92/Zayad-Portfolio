@@ -34,8 +34,16 @@ document.addEventListener("DOMContentLoaded", () => {
 document.querySelectorAll('.toggle-details').forEach(button => {
   button.addEventListener('click', () => {
     const details = button.nextElementSibling;
+
     details.classList.toggle('active');
-    button.textContent = details.classList.contains('active') ? '▲ Hide details' : '▼ More details';
+
+    if (details.classList.contains('active')) {
+      details.style.maxHeight = details.scrollHeight + "px";
+      button.textContent = '▲ Hide details';
+    } else {
+      details.style.maxHeight = "0px";
+      button.textContent = '▼ More details';
+    }
   });
 });
 
@@ -221,7 +229,7 @@ document.querySelectorAll('.toggle-details').forEach(button => {
 
 // Fetch and display GitHub repositories
 (function () {
-  const container = document.getElementById("github-projects");
+  const container = document.getElementById("github-list");
   if (!container) return;
 
   fetch("https://api.github.com/users/zeyd92/repos")
@@ -234,7 +242,6 @@ document.querySelectorAll('.toggle-details').forEach(button => {
         return;
       }
 
-      // Sort by creation date (newest first) and display top 5
       data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
       data.slice(0, 5).forEach(repo => {
