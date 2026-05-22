@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Zeyad Portfolio</title>
+    <title>Zayad Portfolio</title>
     <link rel="icon" type="image/png" href="assets/images/icon.png?v=3">
     <link rel="stylesheet" href="css/styles.css"> 
   </head>
@@ -31,8 +31,17 @@
     
     <section id="about"> 
       <h2>About Me</h2> 
-      <p>Hi, my name is Zeyad Alghamdi. I am a Computer Science student interested in web development.</p>
-      <p>“Always learning, always improving.”</p>  
+    
+      <p>
+        Hi, I'm Zayad Alghamdi, a Computer Science student at KFUPM
+        with a Cybersecurity & Blockchain Minor (CX).
+      </p>
+    
+      <p>
+        <em style="opacity: 0.8;">
+          Passionate about cybersecurity, problem solving, and building technology-driven solutions.
+        </em>
+      </p>
     </section>
     
     <section id="projects"> 
@@ -47,36 +56,40 @@
         <img src="assets/images/project1-Movies.png" alt="Project One - Movies"><br>
         </div>
         <div class="project-right">
-        <br><br><p>This project allows users to log in either as an admin or a regular user. 
-          The user can navigate through the available movies, select a suitable one, and receive feedback indicating whether the booking was successful, if tickets are sold out, or if the movie has already been booked.</p>
-        <p>Admin users can add new movies with full details such as title, time, description, number of available tickets, and additional features. 
-          They can also delete existing movies or update movie information whenever needed.</p>
+        <br><br><p>A movie reservation system that allows users to browse movies,
+          book tickets, and receive feedback about booking status.</p>
+        <p>The application includes an admin panel for managing movies,
+          updating details, and handling ticket availability.</p>
 
           <button class="toggle-details">▼ More details</button>
           <div class="details">
             <ul>
-              <li>User feedback on booking states</li>
-              <li>Admin can manage movie list easily</li>
-              <li>Responsive layout for desktop and mobile</li>
+              <li>Movie booking and availability validation</li>
+              <li>Admin can add, update, and delete movies</li>
+              <li>Built using JavaFX</li>
             </ul>
           </div>
         </div>
       </div>
       <div class="project">
         <div class="project-left">
-        <h3>Courses Registration App</h3>
+        <h3>Student Management System</h3>
         <img src="assets/images/project2-Courses.png" alt="Project Two - Courses"><br>
         </div>
         <div class="project-right"> 
-        <br><br><p>Allow student enrollments in various courses. It allows students to register for courses, view available courses, and drop courses they are enrolled in.</p>
-        <p>The system also provides administrative features for adding or updating course details.</p>
+        <br><br><p>A Java-based student management system developed as a Data Structures project.
+          The system allows users to search, add, update, and delete student records efficiently.</p>
+        <p>The project uses multiple indexes to organize student data and improve search performance
+          by ID, first name, and last name.</p>
         <button class="toggle-details">▼ More details</button>
 
         <div class="details">
           <ul>
-            <li>Admin can add/update courses</li>
-            <li>Students can enroll/drop easily</li>
-            <li>Validation for course capacity</li>
+            <li>Implemented using Java</li>
+            <li>Used HashMap for fast ID-based lookup (Average O(1))</li>
+            <li>Used TreeMap for sorted indexing and search (O(log n))</li>
+            <li>Supports add, search, update, and delete operations</li>
+            <li>Improved search efficiency with multiple data indexes</li>
           </ul>
         </div>
       </div>
@@ -87,23 +100,49 @@
         <img src="assets/images/project3-JadwalGym.png" alt="Project Three - Gym Workout Program"><br>
         </div>
         <div class="project-right"> 
-        <br><br><p>Users can browse different workout programs and view detailed exercise information, including muscle targets, instructions, reps, sets, and recommended weights. 
-          The application supports multiple user roles such as Guest, Trainee, Routine Designer, and Admin.</p>
-        <p>Admin users can manage all programs by adding new workouts, editing existing ones, or removing them when needed. The interface is fully responsive across desktop and mobile, offering a clean, modern, and user-friendly design. <br>
+        <br><br><p>A responsive gym workout web app that allows users to browse workout programs,
+          view exercise details, and search by workout name or category.</p>
+        <p>The app includes role-based access for guests, trainees, routine designers,
+          and admins, with admin features for managing workout programs.<br>
           <a href="https://jadwal-gym-git-main-karraralqallafs-projects.vercel.app/?_vercel_share=w7N2FSFhAk7MBCAsV24U9r90jQD6XjLn" target="_blank" rel="noopener noreferrer">View Project</a></p>
         <button class="toggle-details">▼ More details</button>
 
         <div class="details">
           <ul>
-            <li>Interactive program browsing</li>
-            <li>Search bar for workouts or categories</li>
-            <li>User roles for controlling access</li>
-            <li>Theme customization (dark/light)</li>
-            <li>Smooth navigation and responsive design</li>
+            <li>Workout program browsing and search</li>
+            <li>Detailed exercise information with sets, reps, and targets</li>
+            <li>Role-based access control for different users</li>
+            <li>Admin can add, edit, and delete workout programs</li>
+            <li>Responsive design with dark and light mode</li>
+            <li>Built using React, Node.js, and MongoDB</li>
           </ul>
         </div>
       </div>
     </div> 
+    <div class="project">
+      <div class="project-left">
+        <h3>Damn Vulnerable Serverless Application (DVSA)</h3>
+        <img src="assets/images/project4-DVSA.png" alt="DVSA Project"><br>
+      </div>
+    
+      <div class="project-right">
+        <br><br>
+        <p>Worked on a vulnerable serverless application in AWS to identify, exploit, and mitigate real-world security vulnerabilities.</p>
+    
+        <p>The project focused on analyzing security flaws and applying practical fixes to improve application security.</p>
+    
+        <button class="toggle-details">▼ More details</button>
+    
+        <div class="details">
+          <ul>
+            <li>Identified and exploited security vulnerabilities</li>
+            <li>Applied fixes and mitigation strategies</li>
+            <li>Worked with AWS and serverless environments</li>
+            <li>Performed vulnerability testing and verification</li>
+          </ul>
+        </div>
+      </div>
+    </div>
         <h2>My GitHub Repositories</h2>
         <div id="github-projects" class="github-list">
         <p>Loading GitHub repositories…</p>
