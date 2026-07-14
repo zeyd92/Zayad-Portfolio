@@ -1,208 +1,231 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Zayad Portfolio</title>
-    <link rel="icon" type="image/png" href="assets/images/icon.png?v=3">
-    <link rel="stylesheet" href="css/styles.css"> 
-  </head>
-  <body> 
-    <nav>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Portfolio of Zayad Alghamdi, a Computer Science student focused on cybersecurity and software development.">
+  <title>Zayad Alghamdi | Portfolio</title>
+  <link rel="icon" type="image/png" href="assets/images/icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="navbar" aria-label="Main navigation">
+      <a class="brand" href="#home" aria-label="Go to homepage">ZA<span>.</span></a>
+
       <div class="nav-links">
-      <a href="#about">About</a> 
-      <a href="#projects">Projects</a> 
-      <a href="#contact">Contact</a> 
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#github-projects">GitHub</a>
+        <a href="#contact">Contact</a>
       </div>
-      <div id="greeting-container" class="greeting-box">
-      <h2 id="greeting-message">Welcome!</h2>
-      <input type="text" id="name-input" placeholder="Enter your name">
-      <button id="save-name">Save</button>
-    </div>
-      <button id="theme-toggle" class="theme-toggle" aria-pressed="false" title="Toggle theme">🌑</button>
+
+      <div class="nav-actions">
+        <button id="theme-toggle" class="icon-button" type="button" aria-pressed="false" aria-label="Switch theme" title="Switch theme">🌙</button>
+      </div>
     </nav>
-    
-    <div id="greeting-mobile" class="greeting-mobile">
-      <h2 id="greeting-message-mobile">Welcome!</h2>
-      <input type="text" id="name-input-mobile" placeholder="Enter your name">
-      <button id="save-name-mobile">Save</button>
-    </div>
+  </header>
 
-    
-    <section id="about"> 
-      <h2>About Me</h2> 
-    
-      <p>
-        Hi, I'm Zayad Alghamdi, a Computer Science student at KFUPM
-        with a Cybersecurity & Blockchain Minor (CX).
-      </p>
-    
-      <p>
-        <em style="opacity: 0.8;">
-          Passionate about cybersecurity, problem solving, and building technology-driven solutions.
-        </em>
-      </p>
-    </section>
-    
-    <section id="projects"> 
-      <h2>Projects</h2><br>
-      <div class="project-controls">
-        <input id="project-search" type="search" placeholder="Search for projects…" aria-label="Search projects">
-      </div>
-      <div id="projects-empty" class="empty" hidden>No projects found.</div>
-      <div class="project">
-        <div class="project-left">
-        <h3>Movie Tickets Reservation App</h3> 
-        <img src="assets/images/project1-Movies.png" alt="Project One - Movies"><br>
+  <main>
+    <section id="home" class="hero section-shell">
+      <div class="hero-copy">
+        <p class="eyebrow">Computer Science · Cybersecurity · Software Development</p>
+        <h1>Hi, I’m <span>Zayad Alghamdi.</span></h1>
+        <p class="hero-description">
+          A Computer Science student at KFUPM with a Cybersecurity &amp; Blockchain minor, building practical and secure technology solutions.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="#projects">View my projects</a>
+          <a class="button secondary" href="#contact">Contact me</a>
         </div>
-        <div class="project-right">
-        <br><br><p>A movie reservation system that allows users to browse movies,
-          book tickets, and receive feedback about booking status.</p>
-        <p>The application includes an admin panel for managing movies,
-          updating details, and handling ticket availability.</p>
+        <div class="hero-tags" aria-label="Main skills">
+          <span>Java</span><span>JavaScript</span><span>React</span><span>Cybersecurity</span><span>AWS</span>
+        </div>
+      </div>
 
-          <button class="toggle-details">▼ More details</button>
-          <div class="details">
-            <ul>
-              <li>Movie booking and availability validation.</li>
-              <li>Admin can add, update, and delete movies.</li>
-              <li>Built using JavaFX.</li>
-            </ul>
+      <aside class="welcome-card" aria-labelledby="greeting-message">
+        <span class="status-dot" aria-hidden="true"></span>
+        <p class="welcome-label">Personalized welcome</p>
+        <h2 id="greeting-message">Welcome!</h2>
+        <div class="name-controls">
+          <input type="text" id="name-input" maxlength="30" autocomplete="name" placeholder="Enter your name" aria-label="Your name">
+          <button id="save-name" type="button">Save</button>
+          <button id="edit-name" class="text-button" type="button" hidden>Edit name</button>
+        </div>
+      </aside>
+    </section>
+
+    <section id="about" class="section-shell content-section">
+      <div class="section-heading">
+        <p class="eyebrow">About me</p>
+        <h2>Learning, building, and solving real problems.</h2>
+      </div>
+      <div class="about-grid">
+        <p>
+          I’m a Computer Science student at KFUPM with a Cybersecurity &amp; Blockchain Minor (CX). I enjoy understanding how systems work, finding better solutions, and turning ideas into useful applications.
+        </p>
+        <p>
+          My interests include cybersecurity, full-stack development, data structures, cloud environments, and practical IT. I value clean implementation, clear communication, and continuous improvement.
+        </p>
+      </div>
+    </section>
+
+    <section id="projects" class="section-shell content-section">
+      <div class="section-heading projects-heading">
+        <div>
+          <p class="eyebrow">Selected work</p>
+          <h2>Projects</h2>
+        </div>
+        <div class="project-controls">
+          <label class="sr-only" for="project-search">Search projects</label>
+          <input id="project-search" type="search" placeholder="Search projects or technologies…" aria-label="Search projects">
+        </div>
+      </div>
+
+      <div id="projects-empty" class="empty" hidden>No matching projects found.</div>
+      <div class="projects-grid">
+        <article class="project">
+          <div class="project-media">
+            <img src="assets/images/project1-Movies.png" alt="Movie Tickets Reservation App interface" loading="lazy">
           </div>
-        </div>
-      </div>
-      <div class="project">
-        <div class="project-left">
-        <h3>Student Management System</h3>
-        <img src="assets/images/project2-Courses.png" alt="Project Two - Courses"><br>
-        </div>
-        <div class="project-right"> 
-        <br><br><p>A Java-based student management system developed as a Data Structures project.
-          The system allows users to search, add, update, and delete student records efficiently.</p>
-        <p>The project uses multiple indexes to organize student data and improve search performance
-          by ID, first name, and last name.</p>
-        <button class="toggle-details">▼ More details</button>
+          <div class="project-content">
+            <p class="project-number">01</p>
+            <h3>Movie Tickets Reservation App</h3>
+            <p>A JavaFX reservation system where users can browse movies, book tickets, and receive clear booking-status feedback.</p>
+            <div class="tech-list"><span>Java</span><span>JavaFX</span><span>Desktop App</span></div>
+            <button class="toggle-details" type="button" aria-expanded="false">More details <span>↓</span></button>
+            <div class="details">
+              <ul>
+                <li>Validates movie availability before confirming bookings.</li>
+                <li>Includes an admin area to add, update, and delete movies.</li>
+                <li>Manages ticket availability and movie information.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
 
-        <div class="details">
-          <ul>
-            <li>Implemented using Java</li>
-            <li>Used HashMap for fast ID-based lookup (Average O(1)).</li>
-            <li>Used TreeMap for sorted indexing and search (O(log n)).</li>
-            <li>Supports add, search, update, and delete operations.</li>
-            <li>Improved search efficiency with multiple data indexes.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-      <div class="project">
-        <div class="project-left">
-        <h3>Gym Workout Program Web App</h3>
-        <img src="assets/images/project3-JadwalGym.png" alt="Project Three - Gym Workout Program"><br>
-        </div>
-        <div class="project-right"> 
-        <br><br><p>A responsive gym workout web app that allows users to browse workout programs,
-          view exercise details, and search by workout name or category.</p>
-        <p>The app includes role-based access for guests, trainees, routine designers,
-          and admins, with admin features for managing workout programs.<br>
-          <a href="https://jadwal-gym-git-main-karraralqallafs-projects.vercel.app/?_vercel_share=w7N2FSFhAk7MBCAsV24U9r90jQD6XjLn" target="_blank" rel="noopener noreferrer">View Project</a></p>
-        <button class="toggle-details">▼ More details</button>
+        <article class="project">
+          <div class="project-media">
+            <img src="assets/images/project2-Courses.png" alt="Student Management System interface" loading="lazy">
+          </div>
+          <div class="project-content">
+            <p class="project-number">02</p>
+            <h3>Student Management System</h3>
+            <p>A Java data-structures project that supports efficient student-record creation, search, updates, and deletion using multiple indexes.</p>
+            <div class="tech-list"><span>Java</span><span>HashMap</span><span>TreeMap</span></div>
+            <button class="toggle-details" type="button" aria-expanded="false">More details <span>↓</span></button>
+            <div class="details">
+              <ul>
+                <li>Uses HashMap for average O(1) ID-based lookup.</li>
+                <li>Uses TreeMap for sorted indexes and O(log n) search.</li>
+                <li>Indexes records by ID, first name, and last name.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
 
-        <div class="details">
-          <ul>
-            <li>Workout program browsing and search.</li>
-            <li>Detailed exercise information with sets, reps, and targets.</li>
-            <li>Role-based access control for different users.</li>
-            <li>Admin can add, edit, and delete workout programs.</li>
-            <li>Responsive design with dark and light mode.</li>
-            <li>Built using React, Node.js, and MongoDB.</li>
-          </ul>
-        </div>
-      </div>
-    </div> 
-    <div class="project">
-      <div class="project-left">
-        <h3>Damn Vulnerable Serverless Application (DVSA)</h3>
-        <img src="assets/images/project4-DVSA.png" alt="DVSA Project"><br>
-      </div>
-    
-      <div class="project-right">
-        <br><br>
-        <p>Worked on a vulnerable serverless application in AWS to identify, exploit, and mitigate real-world security vulnerabilities.</p>
-    
-        <p>The project focused on analyzing security flaws and applying practical fixes to improve application security.</p>
-    
-        <button class="toggle-details">▼ More details</button>
-    
-        <div class="details">
-          <ul>
-            <li>Identified and exploited security vulnerabilities.</li>
-            <li>Applied fixes and mitigation strategies.</li>
-            <li>Worked with AWS and serverless environments.</li>
-            <li>Performed vulnerability testing and verification.</li>
-          </ul>
-        </div>
-      </div>
-    </div>
+        <article class="project">
+          <div class="project-media">
+            <img src="assets/images/project3-JadwalGym.png" alt="JadwalGym workout web application" loading="lazy">
+          </div>
+          <div class="project-content">
+            <p class="project-number">03</p>
+            <h3>Gym Workout Program Web App</h3>
+            <p>A responsive full-stack workout platform with search, exercise details, role-based access, program management, and light/dark themes.</p>
+            <div class="tech-list"><span>React</span><span>Node.js</span><span>MongoDB</span></div>
+            <div class="project-links">
+              <a href="https://jadwal-gym-git-main-karraralqallafs-projects.vercel.app/?_vercel_share=w7N2FSFhAk7MBCAsV24U9r90jQD6XjLn" target="_blank" rel="noopener noreferrer">Live project ↗</a>
+            </div>
+            <button class="toggle-details" type="button" aria-expanded="false">More details <span>↓</span></button>
+            <div class="details">
+              <ul>
+                <li>Supports guests, trainees, routine designers, and admins.</li>
+                <li>Displays sets, repetitions, targets, and exercise details.</li>
+                <li>Allows administrators to create, edit, and delete programs.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
 
+        <article class="project">
+          <div class="project-media">
+            <img src="assets/images/project4-DVSA.png" alt="Damn Vulnerable Serverless Application project" loading="lazy">
+          </div>
+          <div class="project-content">
+            <p class="project-number">04</p>
+            <h3>Damn Vulnerable Serverless Application</h3>
+            <p>A practical AWS serverless-security project focused on identifying, exploiting, verifying, and mitigating realistic application vulnerabilities.</p>
+            <div class="tech-list"><span>AWS</span><span>Serverless</span><span>Security Testing</span></div>
+            <button class="toggle-details" type="button" aria-expanded="false">More details <span>↓</span></button>
+            <div class="details">
+              <ul>
+                <li>Analyzed vulnerable application behavior and attack paths.</li>
+                <li>Applied mitigation strategies and verified the fixes.</li>
+                <li>Gained practical experience with AWS serverless environments.</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+      </div>
     </section>
 
-    <section id="github-projects"> 
-      <h2>Latest GitHub Repositories</h2>
-      <div id="github-list" class="github-list">
-        <p>Loading GitHub repositories…</p>
+    <section id="github-projects" class="section-shell content-section">
+      <div class="section-heading">
+        <p class="eyebrow">Open source</p>
+        <h2>Latest GitHub repositories</h2>
+      </div>
+      <div id="github-list" class="github-list" aria-live="polite">
+        <p class="loading-message">Loading GitHub repositories…</p>
       </div>
     </section>
-    
-    <section id="contact"> 
-      <h2>Contact</h2> 
-      <form action="https://formspree.io/f/xzdogblp" method="POST"> 
-        <small id="contact-success" class="success"></small> 
-        <label>Name:</label><br>
-        <input type="text" name="name" id="contact-name" required><br><br>
-    
-        <label>Email:</label><br>
-        <input type="email" name="email" id="contact-email" required><br><br>
-    
-        <label>Message:</label><br>
-        <textarea name="message" id="contact-message" required></textarea><br><br>
-    
-        <button type="submit">Send</button>
-    
-      </form> 
+
+    <section id="contact" class="section-shell content-section contact-section">
+      <div class="contact-intro">
+        <p class="eyebrow">Get in touch</p>
+        <h2>Have a project or opportunity in mind?</h2>
+        <p>Send me a message and I’ll get back to you as soon as possible.</p>
+        <div class="contact-details">
+          <a href="mailto:zayad.alghamdi92@gmail.com">zayad.alghamdi92@gmail.com</a>
+          <a href="tel:+966538800223">+966 53 880 0223</a>
+        </div>
+      </div>
+
+      <form id="contact-form" action="https://formspree.io/f/xzdogblp" method="POST" novalidate>
+        <div class="form-group">
+          <label for="contact-name">Name</label>
+          <input type="text" name="name" id="contact-name" autocomplete="name" required minlength="2">
+          <small id="error-name" class="error"></small>
+        </div>
+        <div class="form-group">
+          <label for="contact-email">Email</label>
+          <input type="email" name="email" id="contact-email" autocomplete="email" required>
+          <small id="error-email" class="error"></small>
+        </div>
+        <div class="form-group">
+          <label for="contact-message">Message</label>
+          <textarea name="message" id="contact-message" rows="6" required minlength="10"></textarea>
+          <small id="error-message" class="error"></small>
+        </div>
+        <button id="contact-submit" class="button primary submit-button" type="submit">Send message</button>
+        <small id="contact-success" class="form-status" aria-live="polite"></small>
+      </form>
     </section>
-    
-    <div class="contact-float"> 
-      <button id="contact-btn">💬</button> 
-      <div id="contact-card"> 
-        <p><strong>Email: </strong>zayad.alghamdi92@gmail.com</p> 
-        <p><strong>Phone:</strong> +966 53 880 0223</p> 
-      </div> 
-    </div>
-    <script src="js/script.js"></script>
-    <script>
-      const form = document.querySelector("#contact form");
-      const successMsg = document.getElementById("contact-success");
-      
-      form.addEventListener("submit", async function(e) {
-        e.preventDefault();
-      
-        const data = new FormData(form);
-      
-        const response = await fetch("https://formspree.io/f/xzdogblp", {
-          method: "POST",
-          body: data,
-          headers: {
-            'Accept': 'application/json'
-          }
-        });
-      
-        if (response.ok) {
-          form.reset();
-          successMsg.textContent = "Message sent successfully!";
-        } else {
-          successMsg.textContent = "Something went wrong.";
-        }
-      });
-      </script>
-  </body>
+  </main>
+
+  <button id="contact-btn" class="contact-float-button" type="button" aria-expanded="false" aria-controls="contact-card" aria-label="Show contact details">✉</button>
+  <div id="contact-card" class="contact-card" role="dialog" aria-label="Contact details">
+    <strong>Let’s connect</strong>
+    <a href="mailto:zayad.alghamdi92@gmail.com">Email me</a>
+    <a href="tel:+966538800223">Call me</a>
+  </div>
+
+  <footer>
+    <p>© <span id="current-year"></span> Zayad Alghamdi. Built with HTML, CSS, and JavaScript.</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
 </html>

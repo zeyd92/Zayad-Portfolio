@@ -1,338 +1,542 @@
-// Floating contact button toggle
-document.addEventListener("DOMContentLoaded", () => {
-  const btn = document.getElementById("contact-btn");
-  const card = document.getElementById("contact-card");
-  btn.addEventListener("click", () => {
-    card.classList.toggle("show");
-  });
-});
+"use strict";
 
-// Theme toggle - saves preference and respects system preference
-(function () {
-  const KEY = 'theme';
-  const btn = document.getElementById('theme-toggle');
-  if (!btn) return;
+const $ = (selector, parent = document) => parent.querySelector(selector);
+const $$ = (selector, parent = document) =>
+  [...parent.querySelectorAll(selector)];
 
-  const stored = localStorage.getItem(KEY);
-  const devicePreferedTheme = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const current = stored || (devicePreferedTheme ? 'dark' : 'light');
+/* ========================================
+   Theme toggle
+======================================== */
 
-  document.documentElement.setAttribute('data-theme', current);
-  btn.setAttribute('aria-pressed', current === 'dark');
-  btn.textContent = current === 'dark' ? '☀️' : '🌑';
+(() => {
+  const button = $("#theme-toggle");
 
-  btn.addEventListener('click', () => {
-    const now = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', now);
-    localStorage.setItem(KEY, now);
-    btn.setAttribute('aria-pressed', now === 'dark');
-    btn.textContent = now === 'dark' ? '☀️' : '🌑';
+  if (!button) return;
+
+  const savedTheme = localStorage.getItem("theme");
+
+  const systemTheme = window.matchMedia(
+    "(prefers-color-scheme: dark)"
+  ).matches
+    ? "dark"
+    : "light";
+
+  function applyTheme(theme) {
+    document.documentElement.dataset.theme = theme;
+
+    button.textContent = theme === "dark" ? "☀️" : "🌙";
+
+    button.setAttribute(
+      "aria-pressed",
+      String(theme === "dark")
+    );
+
+    button.setAttribute(
+      "aria-label",
+      `Switch to ${theme === "dark" ? "light" : "dark"} theme`
+    );
+  }
+
+  applyTheme(savedTheme || systemTheme);
+
+  button.addEventListener("click", () => {
+    const currentTheme =
+      document.documentElement.dataset.theme;
+
+    const newTheme =
+      currentTheme === "dark" ? "light" : "dark";
+
+    localStorage.setItem("theme", newTheme);
+    applyTheme(newTheme);
   });
 })();
 
-// Project details toggle buttons
-document.querySelectorAll('.toggle-details').forEach(button => {
-  button.addEventListener('click', () => {
-    const details = button.nextElementSibling;
+/* ========================================
+   Personalized greeting
+======================================== */
 
-    details.classList.toggle('active');
+(() => {
+  const input = $("#name-input");
+  const saveButton = $("#save-name");
+  const editButton = $("#edit-name");
+  const message = $("#greeting-message");
 
-    if (details.classList.contains('active')) {
-      details.style.maxHeight = details.scrollHeight + "px";
-      button.textContent = '▲ Hide details';
-    } else {
-      details.style.maxHeight = "0px";
-      button.textContent = '▼ More details';
-    }
-  });
-});
+  if (!input || !saveButton || !editButton || !message) {
+    return;
+  }
 
-// Project search filter - filters by project title
-(function () {
-  const input = document.getElementById('project-search');
-  if (!input) return;
+  const storageKey = "portfolioVisitorName";
 
-  const projects = Array.from(document.querySelectorAll('#projects .project'));
-  const emptyMsg = document.getElementById('projects-empty');
-
-  const filter = (q) => {
-    const query = q.trim().toLowerCase();
-    let visibleCount = 0;
-
-    projects.forEach(card => {
-      const titleEl = card.querySelector('.project-left h3');
-      const title = (titleEl?.textContent || '').toLowerCase();
-      const match = title.startsWith(query);
-      card.classList.toggle('is-hidden', !match);
-      if (match) visibleCount++;
-    });
-
-    if (emptyMsg) emptyMsg.hidden = visibleCount !== 0;
-  };
-
-  input.addEventListener('input', (e) => filter(e.target.value));
-  filter(input.value || '');
-})();
-
-// Greeting system - personalized greeting with localStorage persistence
-(function () {
-  const nameInput = document.getElementById('name-input');
-  const saveBtn = document.getElementById('save-name');
-  const editBtn = document.getElementById('edit-name');
-  const greetingMsg = document.getElementById('greeting-message');
-  const nameInputMobile = document.getElementById('name-input-mobile');
-  const saveBtnMobile = document.getElementById('save-name-mobile');
-  const greetingMsgMobile = document.getElementById('greeting-message-mobile');
-  const KEY = 'username';
-
-  // Get time-based greeting (morning/afternoon/evening)
   function getGreeting() {
     const hour = new Date().getHours();
-    if (hour < 12) return 'Good morning';
-    if (hour < 18) return 'Good afternoon';
-    return 'Good evening';
-  }
 
-  // Read username from localStorage (no fallbacks)
-  function getStoredUsername() {
-    const stored = localStorage.getItem(KEY);
-    return stored ? stored.trim() : null;
-  }
-
-  // Update greeting text in both desktop and mobile views
-  function render() {
-    const name = getStoredUsername();
-    const greetingText = name ? `${getGreeting()}, ${name}!` : `${getGreeting()}!`;
-    if (greetingMsg) greetingMsg.textContent = greetingText;
-    if (greetingMsgMobile) greetingMsgMobile.textContent = greetingText;
-  }
-
-  function updateUI() {
-    const saved = getStoredUsername();
-    if (saved) {
-      if (nameInput) {
-        nameInput.value = saved;
-        nameInput.style.display = 'none';
-      }
-      if (saveBtn) saveBtn.style.display = 'none';
-      if (editBtn) editBtn.hidden = false;
-      if (nameInputMobile) {
-        nameInputMobile.value = saved;
-        nameInputMobile.style.display = 'none';
-      }
-      if (saveBtnMobile) saveBtnMobile.style.display = 'none';
-    } else {
-      if (nameInput) {
-        nameInput.value = '';
-        nameInput.style.display = '';
-      }
-      if (saveBtn) saveBtn.style.display = '';
-      if (editBtn) editBtn.hidden = true;
-      if (nameInputMobile) {
-        nameInputMobile.value = '';
-        nameInputMobile.style.display = '';
-      }
-      if (saveBtnMobile) saveBtnMobile.style.display = '';
+    if (hour < 12) {
+      return "Good morning";
     }
+
+    if (hour < 18) {
+      return "Good afternoon";
+    }
+
+    return "Good evening";
   }
 
-  function saveUsername(name) {
-    const trimmedName = name.trim();
-    if (trimmedName) {
-      localStorage.setItem(KEY, trimmedName);
-    } else {
-      localStorage.removeItem(KEY);
-    }
-    render();
-    updateUI();
+  function renderGreeting() {
+    const savedName =
+      localStorage.getItem(storageKey)?.trim() || "";
+
+    message.textContent = savedName
+      ? `${getGreeting()}, ${savedName}!`
+      : `${getGreeting()}!`;
+
+    input.hidden = Boolean(savedName);
+    saveButton.hidden = Boolean(savedName);
+    editButton.hidden = !savedName;
+
+    input.value = savedName;
   }
 
-  render();
-  updateUI();
+  function saveName() {
+    const name = input.value.trim().slice(0, 30);
 
-  // Listen for storage changes from other tabs/windows
-  window.addEventListener('storage', (e) => {
-    if (e.key === KEY) {
-      render();
-      updateUI();
-    }
-  });
-
-  // Listen for same-tab storage changes (via overridden methods below)
-  window.addEventListener('localStorageChange', () => {
-    render();
-    updateUI();
-  });
-
-  saveBtn?.addEventListener('click', () => {
-    const v = (nameInput?.value || '').trim();
-    if (!v) {
-      alert('Please enter your name first!');
+    if (!name) {
+      input.focus();
       return;
     }
-    saveUsername(v);
-  });
 
-  saveBtnMobile?.addEventListener('click', () => {
-    const v = (nameInputMobile?.value || '').trim();
-    if (!v) {
-      alert('Please enter your name first!');
-      return;
+    localStorage.setItem(storageKey, name);
+    renderGreeting();
+  }
+
+  saveButton.addEventListener("click", saveName);
+
+  input.addEventListener("keydown", event => {
+    if (event.key === "Enter") {
+      saveName();
     }
-    saveUsername(v);
   });
 
-  editBtn?.addEventListener('click', () => {
-    const v = getStoredUsername() || '';
-    if (nameInput) {
-      nameInput.value = v;
-      nameInput.style.display = '';
-      nameInput.focus();
-    }
-    if (saveBtn) saveBtn.style.display = '';
-    if (editBtn) editBtn.hidden = true;
+  editButton.addEventListener("click", () => {
+    input.hidden = false;
+    saveButton.hidden = false;
+    editButton.hidden = true;
+
+    input.focus();
+    input.select();
   });
 
-  nameInput?.addEventListener('input', (e) => {
-    if (nameInputMobile) nameInputMobile.value = e.target.value;
-  });
-
-  nameInputMobile?.addEventListener('input', (e) => {
-    if (nameInput) nameInput.value = e.target.value;
-  });
-
-  // Override localStorage methods to detect same-tab changes
-  // (storage event only fires for cross-tab changes)
-  const originalSetItem = localStorage.setItem;
-  const originalRemoveItem = localStorage.removeItem;
-  const originalClear = localStorage.clear;
-
-  localStorage.setItem = function(key, value) {
-    originalSetItem.apply(this, arguments);
-    if (key === KEY) {
-      window.dispatchEvent(new Event('localStorageChange'));
-    }
-  };
-
-  localStorage.removeItem = function(key) {
-    originalRemoveItem.apply(this, arguments);
-    if (key === KEY) {
-      window.dispatchEvent(new Event('localStorageChange'));
-    }
-  };
-
-  localStorage.clear = function() {
-    originalClear.apply(this, arguments);
-    window.dispatchEvent(new Event('localStorageChange'));
-  };
+  renderGreeting();
 })();
 
-// Fetch and display GitHub repositories
-(function () {
-  const container = document.getElementById("github-list");
+/* ========================================
+   Project details buttons
+======================================== */
+
+$$(".toggle-details").forEach(button => {
+  button.addEventListener("click", () => {
+    const details = button.nextElementSibling;
+
+    if (!details?.classList.contains("details")) {
+      return;
+    }
+
+    const isExpanded =
+      button.getAttribute("aria-expanded") === "true";
+
+    button.setAttribute(
+      "aria-expanded",
+      String(!isExpanded)
+    );
+
+    button.textContent = isExpanded
+      ? "▼ More details"
+      : "▲ Hide details";
+
+    details.classList.toggle("active", !isExpanded);
+
+    details.style.maxHeight = isExpanded
+      ? "0px"
+      : `${details.scrollHeight}px`;
+  });
+});
+
+/* ========================================
+   Project search
+======================================== */
+
+(() => {
+  const searchInput = $("#project-search");
+  const emptyMessage = $("#projects-empty");
+  const projects = $$("#projects .project");
+
+  if (!searchInput) return;
+
+  function filterProjects() {
+    const searchText =
+      searchInput.value.trim().toLowerCase();
+
+    let visibleProjects = 0;
+
+    projects.forEach(project => {
+      const projectContent =
+        project.textContent.toLowerCase();
+
+      const matches =
+        projectContent.includes(searchText);
+
+      project.classList.toggle(
+        "is-hidden",
+        !matches
+      );
+
+      if (matches) {
+        visibleProjects++;
+      }
+    });
+
+    if (emptyMessage) {
+      emptyMessage.hidden = visibleProjects > 0;
+    }
+  }
+
+  searchInput.addEventListener(
+    "input",
+    filterProjects
+  );
+
+  filterProjects();
+})();
+
+/* ========================================
+   GitHub repositories
+======================================== */
+
+(async () => {
+  const container = $("#github-list");
+
   if (!container) return;
 
-  fetch("https://api.github.com/users/zeyd92/repos")
-    .then(res => res.json())
-    .then(data => {
-      container.innerHTML = "";
+  try {
+    const response = await fetch(
+      "https://api.github.com/users/zeyd92/repos?sort=updated&per_page=5"
+    );
 
-      if (!Array.isArray(data)) {
-        container.innerHTML = "<p>Failed to load GitHub repos.</p>";
+    if (!response.ok) {
+      throw new Error(
+        `GitHub request failed: ${response.status}`
+      );
+    }
+
+    const repositories = await response.json();
+
+    if (!Array.isArray(repositories)) {
+      throw new Error(
+        "Unexpected GitHub response"
+      );
+    }
+
+    container.innerHTML = "";
+
+    repositories.slice(0, 5).forEach(repo => {
+      const card =
+        document.createElement("article");
+
+      card.className = "github-repo-card";
+
+      const updatedDate =
+        new Intl.DateTimeFormat(undefined, {
+          year: "numeric",
+          month: "short",
+          day: "numeric"
+        }).format(new Date(repo.updated_at));
+
+      const language =
+        repo.language || "Repository";
+
+      card.innerHTML = `
+        <div class="repo-meta">
+          <span>${language}</span>
+          <span>Updated ${updatedDate}</span>
+        </div>
+
+        <h3></h3>
+        <p></p>
+
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View repository ↗
+        </a>
+      `;
+
+      $("h3", card).textContent = repo.name;
+
+      $("p", card).textContent =
+        repo.description ||
+        "No description has been added yet.";
+
+      $("a", card).href = repo.html_url;
+
+      container.appendChild(card);
+    });
+  } catch (error) {
+    console.error(error);
+
+    container.innerHTML = `
+      <p class="loading-message">
+        GitHub repositories could not be loaded right now.
+      </p>
+    `;
+  }
+})();
+
+/* ========================================
+   Contact form
+======================================== */
+
+(() => {
+  const form = $("#contact-form");
+  const submitButton = $("#contact-submit");
+  const statusMessage = $("#contact-success");
+
+  if (!form || !submitButton || !statusMessage) {
+    return;
+  }
+
+  const fields = {
+    name: {
+      input: $("#contact-name"),
+      error: $("#error-name"),
+      minimumLength: 2
+    },
+
+    email: {
+      input: $("#contact-email"),
+      error: $("#error-email")
+    },
+
+    message: {
+      input: $("#contact-message"),
+      error: $("#error-message"),
+      minimumLength: 10
+    }
+  };
+
+  function clearErrors() {
+    Object.values(fields).forEach(field => {
+      if (field.error) {
+        field.error.textContent = "";
+      }
+    });
+  }
+
+  function validateForm() {
+    let isValid = true;
+
+    clearErrors();
+
+    const name =
+      fields.name.input.value.trim();
+
+    const email =
+      fields.email.input.value.trim();
+
+    const message =
+      fields.message.input.value.trim();
+
+    if (
+      name.length <
+      fields.name.minimumLength
+    ) {
+      fields.name.error.textContent =
+        "Please enter at least 2 characters.";
+
+      isValid = false;
+    }
+
+    const validEmail =
+      /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!validEmail.test(email)) {
+      fields.email.error.textContent =
+        "Please enter a valid email address.";
+
+      isValid = false;
+    }
+
+    if (
+      message.length <
+      fields.message.minimumLength
+    ) {
+      fields.message.error.textContent =
+        "Please enter at least 10 characters.";
+
+      isValid = false;
+    }
+
+    return isValid;
+  }
+
+  form.addEventListener(
+    "submit",
+    async event => {
+      event.preventDefault();
+
+      statusMessage.textContent = "";
+      statusMessage.className = "form-status";
+
+      if (!validateForm()) {
         return;
       }
 
-      data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+      submitButton.disabled = true;
+      submitButton.textContent = "Sending…";
 
-      data.slice(0, 5).forEach(repo => {
-        const created = new Date(repo.created_at).toLocaleDateString();
-        const card = document.createElement("div");
-        card.className = "github-repo-card";
+      try {
+        const response = await fetch(
+          form.action,
+          {
+            method: "POST",
+            body: new FormData(form),
+            headers: {
+              Accept: "application/json"
+            }
+          }
+        );
 
-        card.innerHTML = `
-          <div class="repo-date">${created}</div>
-          <h3>${repo.name}</h3>
-          <p>${repo.description || "No description available."}</p>
-          <a href="${repo.html_url}" target="_blank">View Repository</a>
-        `;
+        if (!response.ok) {
+          throw new Error(
+            "Form submission failed"
+          );
+        }
 
-        container.appendChild(card);
-      });
-    })
-    .catch(() => {
-      container.innerHTML = "<p>Failed to load GitHub repos.</p>";
-    });
-})();
+        form.reset();
 
-// Contact form validation
-(function () {
-  const nameInput = document.getElementById("contact-name");
-  const emailInput = document.getElementById("contact-email");
-  const msgInput = document.getElementById("contact-message");
-  const submitBtn = document.getElementById("contact-submit");
-  const errName = document.getElementById("error-name");
-  const errEmail = document.getElementById("error-email");
-  const errMsg = document.getElementById("error-message");
-  const successMsg = document.getElementById("contact-success");
+        statusMessage.textContent =
+          "Message sent successfully.";
 
-  if (!submitBtn) return;
+        statusMessage.classList.add(
+          "success"
+        );
+      } catch (error) {
+        console.error(error);
 
-  submitBtn.addEventListener("click", function (e) {
-    e.preventDefault();
+        statusMessage.textContent =
+          "The message could not be sent. Please try again.";
 
-    let valid = true;
-    errName.textContent = "";
-    errEmail.textContent = "";
-    errMsg.textContent = "";
-    successMsg.textContent = "";
-
-    // Validate name (minimum 2 characters)
-    if (nameInput.value.trim().length < 2) {
-      errName.textContent = "Enter a valid name.";
-      valid = false;
-    }
-
-    // Validate email format (basic check)
-    const email = emailInput.value.trim();
-    if (!email.includes("@") || !email.includes(".")) {
-      errEmail.textContent = "Enter a valid email.";
-      valid = false;
-    }
-
-    // Validate message (minimum 10 characters)
-    if (msgInput.value.trim().length < 10) {
-      errMsg.textContent = "Message must be at least 10 characters.";
-      valid = false;
-    }
-
-    if (valid) {
-      successMsg.textContent = "Message sent successfully!";
-      nameInput.value = "";
-      emailInput.value = "";
-      msgInput.value = "";
-    }
-  });
-})();
-
-// Scroll animation for project cards using Intersection Observer
-(function () {
-  const projects = document.querySelectorAll('.project');
-  if (projects.length === 0) return;
-
-  // Animate cards when they enter viewport (fade-in and slide-up)
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target); // Stop observing after animation
+        statusMessage.classList.add(
+          "failure"
+        );
+      } finally {
+        submitButton.disabled = false;
+        submitButton.textContent =
+          "Send message";
       }
-    });
-  }, {
-    threshold: 0.1, // Trigger when 10% visible
-    rootMargin: '0px 0px -50px 0px' // Trigger 50px before entering viewport
+    }
+  );
+})();
+
+/* ========================================
+   Floating contact card
+======================================== */
+
+(() => {
+  const button = $("#contact-btn");
+  const card = $("#contact-card");
+
+  if (!button || !card) return;
+
+  function closeContactCard() {
+    card.classList.remove("show");
+
+    button.setAttribute(
+      "aria-expanded",
+      "false"
+    );
+  }
+
+  button.addEventListener(
+    "click",
+    event => {
+      event.stopPropagation();
+
+      const isOpen =
+        card.classList.toggle("show");
+
+      button.setAttribute(
+        "aria-expanded",
+        String(isOpen)
+      );
+    }
+  );
+
+  card.addEventListener("click", event => {
+    event.stopPropagation();
   });
+
+  document.addEventListener(
+    "click",
+    closeContactCard
+  );
+
+  document.addEventListener(
+    "keydown",
+    event => {
+      if (event.key === "Escape") {
+        closeContactCard();
+      }
+    }
+  );
+})();
+
+/* ========================================
+   Project scroll animations
+======================================== */
+
+(() => {
+  const projects = $$(".project");
+
+  if (!("IntersectionObserver" in window)) {
+    projects.forEach(project => {
+      project.classList.add("visible");
+    });
+
+    return;
+  }
+
+  const observer =
+    new IntersectionObserver(
+      entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(
+              "visible"
+            );
+
+            observer.unobserve(
+              entry.target
+            );
+          }
+        });
+      },
+      {
+        threshold: 0.12
+      }
+    );
 
   projects.forEach(project => {
     observer.observe(project);
   });
 })();
+
+/* ========================================
+   Footer year
+======================================== */
+
+const currentYear = $("#current-year");
+
+if (currentYear) {
+  currentYear.textContent =
+    new Date().getFullYear();
+  }
